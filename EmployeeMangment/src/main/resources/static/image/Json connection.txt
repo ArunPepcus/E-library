@@ -1,0 +1,29 @@
+   public static void prepareJSONForConfiguration (Cycle c) {
+//        try {
+//            LinkedHashMap<String, Object> configurationMap = new LinkedHashMap<>();
+//            configurationMap.put("Frame", c.getFramePrice());
+//            configurationMap.put("Breaking", c.getBreakPrice());
+//            configurationMap.put("WheelType", c.getWheelPrice());
+//            configurationMap.put("Chain Assembly", c.getChainAssembliPrice());
+//            configurationMap.put("Tyre Type", c.getTyrePrice());
+//            configurationMap.put("Price (INR)", c.getTotalPrice());
+//
+//            StringBuilder json = new StringBuilder("{");
+//
+//            int i = 0;
+//            for (Map.Entry<String, Object> map : configurationMap.entrySet()) {
+//                if (i != 0) {
+//                    json.append(",");
+//                }
+//                json.append("\"").append(map.getKey()).append("\"").append(":").append("\"").append(map.getValue()).append("\"");
+//                i++;
+//            }
+//
+//            json.append("}");
+//            FileWriter jsonFile = new FileWriter("/home/pradeep/SandBox/MyJson.json", true);
+//            jsonFile.write(json.toString());
+//            jsonFile.close();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
