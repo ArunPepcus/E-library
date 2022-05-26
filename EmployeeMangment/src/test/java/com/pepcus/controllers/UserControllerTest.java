@@ -73,4 +73,12 @@ public class UserControllerTest {
     Assert.assertNotNull(response);
     Assert.assertEquals(response.getBody().getDeactivateOn(),user.getDeactivateOn());
   }
+  @Test
+  public void activate() {
+    User user=new User(1,"arun",new Date(),new Date(),null);
+    Mockito.when(userService.activateUser(1)).thenReturn(user);
+    ResponseEntity<User> response = userController.deactivate(user.getId());
+    Assert.assertNotNull(response);
+    Assert.assertNotNull(user.getDeactivateOn());
+  }
 }
