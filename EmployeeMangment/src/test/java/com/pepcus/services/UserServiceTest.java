@@ -1,43 +1,43 @@
-package com.pepcus.controllers;
+package com.pepcus.services;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import com.pepcus.models.User;
+import com.pepcus.repositorys.UserRepository;
 import com.pepcus.services.UserService;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
-import org.springframework.http.ResponseEntity;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@MockitoSettings(strictness = Strictness.LENIENT)
 @RunWith(MockitoJUnitRunner.class)
-public class UserControllerTest {
+public class UserServiceTest {
 
   @InjectMocks
-  UserController userController;
+  UserService userService;
 
   @Mock
-  UserService userService;
+  UserRepository userRepository;
 
   @Test
   public void testAddUser() {
     User user = new User();
     user.setName("Arun");
     user.setBookList(null);
-    Mockito.when(userService.addUser(Mockito.any(User.class))).thenReturn(user);
-    ResponseEntity<User> response = userController.addUsers(user);
+    Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+    User response = userService.addUser(user);
     Assert.assertNotNull(response);
-    Assert.assertEquals(response.getBody().getName(), user.getName());
+    Assert.assertNotNull(response.getRegistrationDate());
+    Assert.assertEquals(response.getName(), user.getName());
   }
-
   @Test
   public void testGetAllUsers() {
     User user1 = new User();
@@ -57,20 +57,19 @@ public class UserControllerTest {
     userList.add(user1);
     userList.add(user2);
 
-    Mockito.when(userService.getAllUsers(userList)).thenReturn(userList);
-    List<User> response = userController.getAllUsers(userList);
+    Mockito.when(userRepository.findAll()).thenReturn(userList);
+    List<User> response = userService.getAllUsers(userList);
     System.out.println(response);
     Assert.assertNotNull(response);
-    assertThat(response).isEqualTo(user1);
+    assertThat(response).isEqualTo(userList);
 
   }
 
   @Test
-  public void deactivate() {
+  public void deactivateUser() {
     User user=new User(1,"arun",new Date(),new Date(),null);
-    Mockito.when(userService.deactivateUser(1)).thenReturn(user);
-    ResponseEntity<User> response = userController.deactivate(user.getId());
-    Assert.assertNotNull(response);
-    Assert.assertEquals(response.getBody().getDeactivateOn(),user.getDeactivateOn());
+    Assertions.assertThrows(IllegalArgumentException.class,
+            ()->  userRepository.existsById(user.getId()));
+
   }
 }

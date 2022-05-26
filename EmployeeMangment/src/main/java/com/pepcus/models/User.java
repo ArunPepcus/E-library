@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,18 +30,29 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  
+  @NotNull
   @Column(name = "users_name")
   private String name;
-  
+  @NotNull
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private Date registrationDate;
-  
+  @NotNull
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private Date deactivateOn;
-  
 
-  
+//public User(String name){
+//  this.name = name;
+//}
+
+
+//  public User(Integer id) {
+//    this.id = id;
+//    this.name = name;
+//    this.registrationDate = registrationDate;
+//    this.deactivateOn = deactivateOn;
+//    this.bookList = bookList;
+//  }
+
   @Valid
   @OneToMany(cascade =CascadeType.ALL)
   private List<Book> bookList;
