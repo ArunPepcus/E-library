@@ -24,5 +24,5 @@ public interface EmployeeService {
 
   Page<Employee> findEmployeeByPagination(Integer offset, Integer pageSize);
 
-  void testMethod();
+  void testMethodDef();
 }
